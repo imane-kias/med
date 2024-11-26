@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyse de Symptômes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
+      }
+      h2 {
+        text-align: center;
+      }
+      #symptom-form {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      #result {
+        margin-top: 20px;
+        padding: 10px;
+        background: #e9f5ff;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Analyser mes symptômes</h2>
+    <form id="symptom-form">
+      <textarea
+        id="symptoms"
+        rows="5"
+        placeholder="Entrez vos symptômes..."
+      ></textarea>
+      <button type="submit">Analyser</button>
+    </form>
+    <div id="result"></div>
+    <script>
+      document
+        .getElementById("symptom-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const symptoms = document
+            .getElementById("symptoms")
+            .value.split(",")
+            .map((s) => s.trim());
+
+          if (symptoms.length < 3) {
+            alert("Veuillez entrer au moins 3 symptômes.");
+            return;
+          }
+
+          fetch("/api/analyze-symptoms", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ symptoms }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Erreur dans la réponse du serveur.");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.error) {
+                document.getElementById(
+                  "result"
+                ).innerText = `Erreur : ${data.error}`;
+              } else {
+                document.getElementById("result").innerHTML = `
+                  <p><b>Maladie :</b> ${data.disease}</p>
+                  <p><b>Description :</b> ${data.description}</p>
+                  <p><b>Conseils :</b> ${data.advice}</p>
+                  <p><b>Urgence :</b> ${data.urgency}</p>`;
+              }
+            })
+            .catch((error) => console.error("Erreur :", error));
+        });
+    </script>
+  </body>
+</html>

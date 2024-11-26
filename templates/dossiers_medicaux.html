@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dossier Médical</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        color: #003366;
+      }
+      .info {
+        margin-bottom: 10px;
+      }
+      .info label {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Dossier Médical</h1>
+      <h2>Informations du Dossier</h2>
+      <div class="info">
+        <label>Nom du Patient :</label> {{ dossier.nom_prenom }}
+      </div>
+      <div class="info">
+        <label>Date de Naissance :</label> {{ dossier.date_naissance }}
+      </div>
+      <div class="info"><label>Genre :</label> {{ dossier.genre }}</div>
+      <div class="info">
+        <label>Coordonnées :</label> {{ dossier.coordonnees }}
+      </div>
+      <div class="info">
+        <label>Numéro d'Assurance :</label> {{ dossier.numero_assurance }}
+      </div>
+
+      <!-- Ajouter un bouton pour revenir à la liste des dossiers -->
+      <a href="{{ url_for('dashboard_administration') }}"
+        >Retour à la liste des dossiers</a
+      >
+    </div>
+  </body>
+</html>

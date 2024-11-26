@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tableau de Bord - Médecin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <style>
+      /* Image d'arrière-plan */
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/static/image4.jpg"); /* Remplacez par le chemin de votre image */
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Styles pour le conteneur */
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 30px;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); /* Couleur blanche avec transparence */
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      /* Style des titres et du lien */
+      h2,
+      h3 {
+        color: #0056b3;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      a {
+        color: #0056b3;
+        text-decoration: none;
+        font-weight: bold;
+        position: center;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Formulaire */
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+      }
+
+      /* Bouton de soumission */
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Messages flash */
+      .flash-message {
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .flash-message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .flash-message.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="container">
+        <a href="{{ url_for('gestion_rendez_vous') }}">Gérer les rendez-vous</a
+        ><br /><br />
+
+        <h3>Accéder au dossier médical</h3>
+        <form method="POST" action="{{ url_for('verifier_num_assurance') }}">
+          <label for="num_assurance"
+            >Entrez le numéro d'assurance du patient :</label
+          >
+          <input type="text" id="num_assurance" name="num_assurance" required />
+          <button type="submit">Consulter le dossier</button>
+        </form>
+
+        <!-- Messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <p class="flash-message {{ category }}">{{ message }}</p>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+    </div>
+  </body>
+</html>

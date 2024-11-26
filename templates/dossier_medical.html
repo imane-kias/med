@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Médical</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Arrière-plan de la page */
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/static/image9.jpeg"); /* Image de fond */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* Conteneur principal avec transparence */
+      .container {
+        width: 90%;
+        max-width: 600px;
+        background-color: rgba(255, 255, 255, 0.6); /* Transparence */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      /* Style des titres */
+      h1 {
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        color: #0056b3;
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      /* Style des paragraphes */
+      p {
+        font-size: 18px;
+        margin: 10px 0;
+        text-align: left;
+      }
+
+      /* Style des boutons */
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Informations du Dossier</h2>
+      <p><strong>Nom du Patient :</strong> {{ dossier.nom }}</p>
+      <p><strong>Date de Naissance :</strong> {{ dossier.date_naissance }}</p>
+      <p><strong>Genre :</strong> {{ dossier.genre }}</p>
+      <p>
+        <strong>Coordonnées :</strong> {{ dossier.adresse }} - {{
+        dossier.numero_telephone }}
+      </p>
+      <p>
+        <strong>Numéro d'Assurance :</strong> {{ dossier.numero_assurance }}
+      </p>
+
+      <!-- Bouton pour accéder à la page des consultations -->
+      <a href="{{ url_for('consultations', dossier_id=dossier.id) }}">
+        <button>Voir les Consultations</button>
+      </a>
+    </div>
+  </body>
+</html>

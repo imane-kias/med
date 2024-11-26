@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise à jour des coordonnées</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("/static/image8.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            text-align: left;
+        }
+        input[type="text"], input[type="date"], select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mettre à jour vos coordonnées</h2>
+        <form method="POST">
+            <label for="adresse">Adresse :</label>
+            <input type="text" name="adresse" value="{{ patient['adresse'] }}" required />
+
+            <label for="numero_telephone">Numéro de téléphone :</label>
+            <input type="text" name="numero_telephone" value="{{ patient['numero_telephone'] }}" required />
+
+            <label for="date_naissance">Date de Naissance :</label>
+            <input type="date" name="date_naissance" value="{{ patient['date_naissance'] }}" required />
+
+            <label for="groupe_sanguin">Groupe Sanguin :</label>
+            <input type="text" name="groupe_sanguin" value="{{ patient['groupe_sanguin'] }}" required />
+
+            <label for="lieu_naissance">Lieu de Naissance :</label>
+            <input type="text" name="lieu_naissance" value="{{ patient['lieu_naissance'] }}" required />
+
+            <label for="genre">Genre :</label>
+            <select name="genre" required>
+                <option value="masculin" {% if patient['genre'] == 'masculin' %}selected{% endif %}>Masculin</option>
+                <option value="feminin" {% if patient['genre'] == 'feminin' %}selected{% endif %}>Féminin</option>
+                <option value="autre" {% if patient['genre'] == 'autre' %}selected{% endif %}>Autre</option>
+            </select>
+
+            <button type="submit">Mettre à jour</button>
+        </form>
+    </div>
+
+    <!-- JavaScript pour afficher un message de confirmation et rediriger -->
+    {% if redirect_dashboard %}
+    <script>
+        alert("Vos modifications ont été enregistrées avec succès !");
+        window.location.href = "{{ url_for('dashboard_patient') }}";
+    </script>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annuler une Modification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+      .modification {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+      .modification h3 {
+        margin-top: 0;
+      }
+      button {
+        background-color: #f44336;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      button:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Annuler une Modification</h1>
+
+    <h2>Historique des Modifications</h2>
+    {% if modifications %} {% for modification in modifications %}
+    <div class="modification">
+      <p>
+        <strong>Modification faite par :</strong> Médecin {{
+        modification.utilisateur_id }}
+      </p>
+      <p><strong>Date :</strong> {{ modification.date_modification }}</p>
+      <p><strong>Détails :</strong> {{ modification.details_modification }}</p>
+      <form
+        method="POST"
+        action="{{ url_for('annuler_modification', modification_id=modification.id, dossier_id=modification.dossier_id) }}"
+      >
+        <button type="submit">Annuler cette Modification</button>
+      </form>
+    </div>
+    {% endfor %} {% else %}
+    <p>Aucune modification trouvée pour ce dossier.</p>
+    {% endif %}
+  </body>
+</html>

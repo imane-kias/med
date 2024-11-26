@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultations du Patient</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Style général pour la page */
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/static/image10.jpeg"); /* Image de fond */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* Conteneur principal */
+      .container {
+        width: 90%;
+        max-width: 800px;
+        background-color: rgba(255, 255, 255, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+
+      h1,
+      h2 {
+        color: #0056b3;
+        font-weight: bold;
+      }
+
+      /* Style des boutons */
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 10px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Style pour chaque consultation */
+      .consultation,
+      .modification {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+      }
+
+      .consultation p,
+      .modification p {
+        font-size: 16px;
+        margin: 5px 0;
+      }
+
+      /* Style pour les titres de section */
+      h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #444;
+        margin-top: 10px;
+      }
+
+      /* Séparateur de consultations */
+      hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 20px 0;
+      }
+
+      /* Lien et bouton d'action */
+      a.button-link,
+      form button {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 5px;
+      }
+
+      .button-link {
+        background-color: #007bff;
+      }
+
+      .button-link:hover {
+        background-color: #0056b3;
+      }
+
+      .modification form button {
+        background-color: #dc3545;
+      }
+
+      .modification form button:hover {
+        background-color: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Consultations pour le Dossier #{{ dossier_id }}</h1>
+
+      <!-- Bouton pour ajouter une nouvelle consultation -->
+      <a href="{{ url_for('ajouter_consultation', dossier_id=dossier_id) }}">
+        <button>Ajouter une Nouvelle Consultation</button>
+      </a>
+
+      <h2>Liste des Consultations</h2>
+      {% if consultations %} {% for consultation in consultations %}
+      <div class="consultation">
+        <p>
+          <strong>Établissement Visité :</strong> {{
+          consultation.etablissement_visite }}
+        </p>
+        <p><strong>Date de Visite :</strong> {{ consultation.date_visite }}</p>
+        <p><strong>Diagnostique :</strong> {{ consultation.diagnostique }}</p>
+        <p><strong>Traitement :</strong> {{ consultation.traitement }}</p>
+        <p>
+          <strong>Résumé de la Visite :</strong> {{ consultation.resume_visite
+          }}
+        </p>
+        <p><strong>Notes :</strong> {{ consultation.notes }}</p>
+
+        <!-- Bouton pour modifier la consultation -->
+        <a
+          href="{{ url_for('modifier_consultation', consultation_id=consultation.id) }}"
+        >
+          <button>Modifier cette Consultation</button>
+        </a>
+
+        <!-- Affichage des modifications s'il y en a -->
+        {% if consultation.modifications %}
+        <h3>Modifications</h3>
+        {% for modif in consultation.modifications %}
+        <div class="modification">
+          <p><strong>Modifiée le :</strong> {{ modif.date_modification }}</p>
+          <p><strong>Détails :</strong> {{ modif.details_modification }}</p>
+
+          <!-- Bouton pour annuler la modification -->
+          <form
+            method="POST"
+            action="{{ url_for('annuler_modification', modification_id=modif.id, dossier_id=dossier_id) }}"
+          >
+            <button type="submit">Annuler cette Modification</button>
+          </form>
+        </div>
+        {% endfor %} {% endif %}
+        <hr />
+      </div>
+      {% endfor %} {% else %}
+      <p>Aucune consultation trouvée pour ce patient.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

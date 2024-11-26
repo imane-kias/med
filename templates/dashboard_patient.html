@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tableau de Bord - Patient</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      /* Style de base pour le corps */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        background-image: url("/static/image6.jpeg"); /* Remplacez par le nom de votre image */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      /* Conteneur principal centré */
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        width: 90%;
+        max-width: 600px;
+        background-color: rgba(255, 255, 255, 0.9); /* Légèrement transparent */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      /* Style du titre */
+      h2 {
+        color: black;
+        font-weight: bold;
+        font-size: 38px;
+        margin-bottom: 40px;
+        margin-top: 20px;
+        text-align: center;
+      }
+      a {
+        color: black;
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      /* Liens sous le titre */
+      .container a {
+        color: #0056b3;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 10px 0;
+        padding: 10px 15px;
+        border: 1px solid #0056b3;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .container a:hover {
+        background-color: #0056b3;
+        color: white;
+      }
+
+      /* Image de fond */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url("../static/your-background-image.jpg"); /* Chemin de l'image */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.3; /* Ajustez l'opacité selon vos préférences */
+        z-index: -1; /* Placez-le derrière le contenu */
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Bienvenue, Patient</h2>
+    <a href="{{ url_for('update_patient', user_id=session['user_id']) }}"
+      >Mettre à jour vos coordonnées</a
+    ><br />
+    <a href="{{ url_for('rendez_vous') }}">Prendre un rendez-vous</a><br />
+    <a href="{{ url_for('patient_rendez_vous') }}">Mes rendez-vous</a><br />
+    <li><a href="/analyze-symptoms">Analyser mes symptômes</a></li>
+  </body>
+</html>

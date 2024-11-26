@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter une Consultation</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Styles de base */
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/static/image11.jpeg"); /* Image de fond */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Conteneur principal */
+      .container {
+        max-height: 500px;
+        background-color: rgba(255, 255, 255, 0.6);
+        width: 90%;
+        max-width: 600px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        overflow-y: auto;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #0056b3;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      /* Styles pour le formulaire */
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      textarea {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 50px;
+      }
+
+      /* Styles pour le bouton */
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Ajouter une Nouvelle Consultation</h1>
+
+      <form
+        method="POST"
+        action="{{ url_for('ajouter_consultation', dossier_id=dossier_id) }}"
+      >
+        <label for="etablissement_visite">Établissement Visité :</label>
+        <input type="text" name="etablissement_visite" required /><br />
+
+        <label for="date_visite">Date de Visite :</label>
+        <input type="date" name="date_visite" required /><br />
+
+        <label for="diagnostique">Diagnostique :</label>
+        <textarea name="diagnostique" required></textarea><br />
+
+        <label for="traitement">Traitement :</label>
+        <textarea name="traitement" required></textarea><br />
+
+        <label for="resume_visite">Résumé de la Visite :</label>
+        <textarea name="resume_visite" required></textarea><br />
+
+        <label for="notes">Notes :</label>
+        <textarea name="notes"></textarea><br />
+
+        <button type="submit">Ajouter Consultation</button>
+      </form>
+    </div>
+  </body>
+</html>

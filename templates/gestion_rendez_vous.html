@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gérer les rendez-vous</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Conteneur principal qui place chaque div enfant en colonne */
+      div {
+        display: flex;
+        flex-direction: column; /* Place les éléments verticalement */
+        gap: 20px; /* Espace entre chaque div enfant */
+        align-items: center; /* Centre chaque div enfant horizontalement */
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Image de fond pour le body */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+
+        /* Image en arrière-plan */
+        background-image: url("/static/image5.jpeg"); /* Remplacez par le lien ou chemin de votre image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      /* Titre de la page */
+      h2 {
+        color: black;
+        font-weight: bold;
+        font-size: 28px;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      /* Conteneur principal */
+      .container {
+        width: 90%;
+        max-width: 600px;
+        background-color: rgba(255, 255, 255, 0.6); /* Légèrement transparent */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      /* Style pour chaque rendez-vous */
+      .rdv-container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* Informations sur le rendez-vous */
+      .rdv-info {
+        font-size: 18px;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      /* Formulaire et boutons */
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+      }
+
+      button {
+        padding: 12px 25px;
+        font-size: 16px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%; /* Pour que chaque bouton prenne toute la largeur */
+        max-width: 200px;
+        transition: background-color 0.3s ease;
+      }
+
+      /* Bouton de confirmation */
+      button[name="action"][value="confirmé"] {
+        background-color: #28a745;
+      }
+
+      button[name="action"][value="confirmé"]:hover {
+        background-color: #218838;
+      }
+
+      /* Bouton de refus */
+      button[name="action"][value="refusé"] {
+        background-color: #dc3545;
+      }
+
+      button[name="action"][value="refusé"]:hover {
+        background-color: #c82333;
+      }
+
+      /* Espacement et alignement pour les informations */
+      .rdv-container p {
+        margin: 5px 0;
+        font-size: 18px;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Gérer les rendez-vous</h2>
+    {% for rdv in rendez_vous %}
+    <div>
+      <p>Date : {{ rdv.date_rdv }} Heure : {{ rdv.heure_rdv }}</p>
+      <p>Statut : {{ rdv.statut }}</p>
+      <form method="POST">
+        <input type="hidden" name="rdv_id" value="{{ rdv.id }}" />
+        <button type="submit" name="action" value="confirmé">Confirmer</button>
+        <button type="submit" name="action" value="refusé">Refuser</button>
+      </form>
+    </div>
+    {% endfor %}
+  </body>
+</html>

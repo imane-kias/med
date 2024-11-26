@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mes Rendez-vous</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center">Mes Rendez-vous</h2>
+      <table class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Médecin</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rdv in rendez_vous %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ rdv.medecin_nom }}</td>
+            <td>{{ rdv.date_rdv }}</td>
+            <td>{{ rdv.heure_rdv }}</td>
+            <td>
+              {% if rdv.statut == 'confirmé' %}
+              <span class="badge badge-success">Confirmé</span>
+              {% elif rdv.statut == 'refusé' %}
+              <span class="badge badge-danger">Refusé</span>
+              {% else %}
+              <span class="badge badge-warning">En attente</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{{ url_for('dashboard_patient') }}" class="btn btn-primary"
+        >Retour au tableau de bord</a
+      >
+    </div>
+  </body>
+</html>

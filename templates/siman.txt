@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Appliquer l'image à tout le corps de la page */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        color: #4169e1; /* Bleu roi */
+        background-image: url("/static/image1.jpg"); /* Applique l'image en fond */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* Image fixe même quand on scrolle */
+      }
+
+      .container {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); /* Transparence blanche pour rendre le texte lisible */
+        margin-top: 50px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-control {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        color: #4169e1;
+      }
+
+      .form-control::placeholder {
+        color: #4169e1;
+      }
+
+      label {
+        font-weight: 600;
+        color: #4169e1;
+      }
+
+      .btn-primary {
+        border-color: #4169e1;
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #274e7f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h2 class="mt-5 text-center">Inscription</h2>
+          <form method="POST">
+            <div class="form-group">
+              <label for="name">Nom :</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                placeholder="Entrez votre nom"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email :</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Entrez votre adresse email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe :</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Entrez un mot de passe sécurisé"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="confirm_password">Confirmer le mot de passe :</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Confirmez votre mot de passe"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              S'inscrire
+            </button>
+          </form>
+          <div class="text-center mt-3">
+            <p>Déjà un compte ? <a href="/login">Connectez-vous ici</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script JS pour Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      const roleSelect = document.getElementById("role");
+      const medecinDiv = document.getElementById("medecin");
+      const patientDiv = document.getElementById("patient");
+
+      roleSelect.addEventListener("change", function () {
+        if (roleSelect.value === "medecin") {
+          medecinDiv.style.display = "block";
+          patientDiv.style.display = "none";
+        } else if (roleSelect.value === "patient") {
+          patientDiv.style.display = "block";
+          medecinDiv.style.display = "none";
+        } else {
+          medecinDiv.style.display = "none";
+          patientDiv.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
